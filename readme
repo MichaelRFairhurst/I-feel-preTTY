@@ -3,8 +3,8 @@ I Feel PreTTY is a package for formatting scripts on ANSI terminals.
 For the moment the only classes are PreTTYProcess and PreTTYDemo
 
 PreTTYProcess:
-  x - You can have outputting processes use its public methods or extend it. I usually
-  | prefer to extend it.
+  x - You can have outputting processes use its public methods or extend it.
+  | I usually prefer to extend it.
   |
   x + Main methods:
   | |
