@@ -1,6 +1,29 @@
-# I Feel PreTTY ## is a package for formatting scripts on ANSI terminals.
+# I Feel PreTTY
+I Feel PreTTY is a package for formatting PHP scripts on ANSI
+terminals. Script output is often going by too fast to read, or has
+too little information to be useful. There is often no indication of
+how long until done. Adding colors and grouped indentation and an
+estimated time to completion leaves you that much more prepared for
+those late nights running those unnerving migrations
+
+distributed under the MIT license.
+
+## What you get right away
+1. Automatic indent management with tier grouping
+2. ANSI colors (teal, yellow, white, grey, purple), bold
+3. Progress bar - 0% to 100%
+4. Estimated time to completion - minutes seconds
+5. Increased saliva production during sexy script readouts
+6. Automatically resizes with your terminal
+7. Simple, chainable, and object oriented API
+
+![Preview of PreTTY output](http://wikifightgame.com/moarcontent/I-Feel-PreTTY.png)
 
 For the moment the only classes are PreTTYProcess and PreTTYDemo
+
+## PreTTYDemo:
+Have a nice serenading demo of PreTTYProcess, just run `php demo.php`
+to see what the PreTTYDemo object has in store for you.
 
 ## PreTTYProcess:
 You can have outputting processes use its public methods or extend it.
