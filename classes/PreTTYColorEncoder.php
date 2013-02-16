@@ -42,4 +42,24 @@ class PreTTYColorEncoder {
 	public function reset() {
 		return "\033[0m";
 	}
+
+	public function moveback($amount) {
+		return "\033[{$amount}D";
+	}
+
+	public function moveup($amount) {
+		return "\033[{$amount}A";
+	}
+
+	public function saveCursor() {
+		return "\033[s";
+	}
+
+	public function restoreCursor() {
+		return "\033[u";
+	}
+
+	public function setCursor($line, $column) {
+		return "\033[$line;{$column}H";
+	}
 }

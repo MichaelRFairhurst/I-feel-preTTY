@@ -23,7 +23,7 @@ class PreTTYTierCache implements iPreTTYHooker {
 				break;
 
 			case iPreTTYHooker::AFTER_SAY:
-				$this->printCache();
+				return $this->printCache();
 				break;
 
 			case iPreTTYHooker::INDENT: $this->indent++; break;
@@ -32,20 +32,21 @@ class PreTTYTierCache implements iPreTTYHooker {
 	}
 
 	private function printCache() {
-		//if($this->indent == 0) return;
-		echo "\033[s\033[0;0H";
+		$return = $this->encoder->saveCursor() . $this->encoder->setCursor(0,0);
 
-		echo str_repeat("*", $this->width + 1) . PHP_EOL;
+		$return .= str_repeat("*", $this->width + 1) . PHP_EOL;
 
 		foreach($this->cache as $i => $c) {
 			$indent = $i * 2 - 1;
 			$text = str_repeat('+', $indent) . $c->render($this->width - $indent);
-			echo $text . str_repeat('.', $this->width - $c->getLength() - $indent + 1) . PHP_EOL;
+			$return .= $text . str_repeat('.', $this->width - $c->getLength() - $indent + 1) . PHP_EOL;
 		}
 
-		echo str_repeat("_", $this->width + 1) . PHP_EOL;
-		echo str_repeat("^", $this->width + 1) . PHP_EOL;
+		$return .= str_repeat("_", $this->width + 1) . PHP_EOL;
+		$return .= str_repeat("^", $this->width + 1) . PHP_EOL;
 
-		echo "\033[u";
+		$return .= $this->encoder->restoreCursor();
+
+		return $return;
 	}
 }

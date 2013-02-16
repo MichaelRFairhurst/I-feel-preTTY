@@ -38,12 +38,12 @@ class PreTTYProgressBar implements iPreTTYHooker {
 		$topper = $this->getProgressBarTopper();
 
 		// Top bar
-		$return .= "\033[0;34m" . $topper . PHP_EOL;
+		$return .= $this->encoder->encode('blue') . $topper . PHP_EOL;
 
 		// Progress bar
-		$return .= "= \033[1;32m";
+		$return .= '= ' . $this->encoder->encode('green', true);
 		while(++$i < $cols) {
-			if($firstgreater) $return .= "\033[1;31m";
+			if($firstgreater) $return .= $this->encoder->encode('red', true);
 			$return .= $pos < $perc ? '+' : 'X';
 			$wasless = $pos < $perc;
 			$pos += $delta;
@@ -52,11 +52,11 @@ class PreTTYProgressBar implements iPreTTYHooker {
 
 		// Readout
 		$return .= sprintf(' %%%5.01f', $perc*100);
-		$return .= "\033[0;34m =" . PHP_EOL;
+		$return .= $this->encoder->encode('blue') . ' =' . PHP_EOL;
 
 		// Bottom bar & cleanup
-		$return .= $topper . "\033[" . ($this->width + 1) . 'D';
-		$return .= "\033[0m" . PHP_EOL; // in case execution stops
+		$return .= $topper . $this->encoder->moveback($this->width + 1);
+		$return .= $this->encoder->reset();// . PHP_EOL; // in case execution stops
 
 		return $return;
 	}
@@ -120,7 +120,8 @@ class PreTTYProgressBar implements iPreTTYHooker {
 	public function runHook($hook, array $data = array()) {
 		switch($hook) {
 			case iPreTTYHooker::BEFORE_SAY:
-				if($this->printed_bar) return "\033[3A";
+				if($this->printed_bar)
+					return $this->encoder->moveup(2);
 				break;
 
 			case iPreTTYHooker::AFTER_SAY:
