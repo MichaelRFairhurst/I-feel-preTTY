@@ -25,47 +25,47 @@ distributed under the MIT license.
 components. You can start without any installed components by passing
 `array()` as the first constructor parameter.
 
-	class ExampleMigration extends PreTTYProcess {
+		class ExampleMigration extends PreTTYProcess {
 
-		function __construct() {
-			parent::__construct();
-			$this->install(new PreTTYBreadCrumbs);
-		}
+			function __construct() {
+				parent::__construct();
+				$this->install(new PreTTYBreadCrumbs);
+			}
 
-		function run() {
-			//...
+			function run() {
+				//...
+			}
 		}
-	}
 
 2. Count your operations as best you can. This will be used to track
 completion percentage and time estimates
 
-	function run() {
-		$this->setTasks(UserQuery::create()->count());
+		function run() {
+			$this->setTasks(UserQuery::create()->count());
 
-		foreach(UserQuery::create()->find() as $user) {
-			$this->doSomethingWith($user);
+			foreach(UserQuery::create()->find() as $user) {
+				$this->doSomethingWith($user);
+			}
 		}
-	}
 
 3. Perform each task, marking them complete along the way. This part
 is your job, not mine!
 
-	function doSomethingWith(User $user) {
-		$this->say('Processing user #' . $user->getUserID(), 'blue')
-			->indent()
-			->say('Doing first thing');
+		function doSomethingWith(User $user) {
+			$this->say('Processing user #' . $user->getUserID(), 'blue')
+				->indent()
+				->say('Doing first thing');
 
-		$user->doSomething();
+			$user->doSomething();
 
-		$this->say('Saving');
+			$this->say('Saving');
 
-		$user->save();
+			$user->save();
 
-		$this->say('done', 'green')
-			->outdent()
-			->completeTask();
-	}
+			$this->say('done', 'green')
+				->outdent()
+				->completeTask();
+		}
 
 # Documentation
 
@@ -141,8 +141,8 @@ every B, and merged together an item at a time, then you may see this:
 	+++++Consolidating
 	+++++++Consolidating first items
 
-#### Methods given to PreTTYProcess after installation
-none
+PreTTYBreadCrumbs does not provide any new methods to PreTTYProcess when
+installed.
 
 ## Creating a component
 Your components must implement the interface iPreTTYComponent. There
