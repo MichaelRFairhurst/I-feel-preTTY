@@ -162,9 +162,19 @@ are three methods you must meet:
 > The standard hooks are below. Your object does not need to respond to
 > every hook. The return value from a hook will be echoed. 
 
+### Standard hooks (hook - data)
+
+* `iPreTTYComponent::HOOK_BEFORE_SAY` - no data
+* `iPreTTYComponent::HOOK_SAY` - `array('string' => PreTTYStringObject)`
+* `iPreTTYComponent::HOOK_AFTER_SAY` - no data
+* `iPreTTYComponent::HOOK_INDENT` - no data
+* `iPreTTYComponent::HOOK_OUTDENT` - no data
+
+### Creating your own custom hooks
+
 When you install a component, you are able to use your own hooks, thanks
-to `PreTTYProcess`'s usage of `__call()`. This is how indent, outdent,
-setTasks, and completeTask all work. The method name gets converted to
+to `PreTTYProcess`'s usage of `__call()`. This is how `->indent()`, `->outdent()`,
+`->setTasks()`, and `completeTask()` all work. The method name gets converted to
 all caps and becomes the hook name. The arguments are used as the `$data`
 array.
 
@@ -176,14 +186,6 @@ array.
 
 	// is the same as
 	$component->runHook('CUSTOMHOOK', array(1, 2, 3));
-
-### Standard hooks (hook - data)
-
-* `iPreTTYComponent::HOOK_BEFORE_SAY` - no data
-* `iPreTTYComponent::HOOK_SAY` - `array('string' => PreTTYStringObject)`
-* `iPreTTYComponent::HOOK_AFTER_SAY` - no data
-* `iPreTTYComponent::HOOK_INDENT` - no data
-* `iPreTTYComponent::HOOK_OUTDENT` - no data
 
 ## Using the `PreTTYColorEncoder`
 ANSI sequences begin a format or move the cursor. If you begin a format
