@@ -1,11 +1,12 @@
 <?php
 
-require_once('iPreTTYHooker.php');
-require_once('PreTTYColorEncoder.php');
-require_once('PreTTYTierCache.php');
-require_once('PreTTYFormatter.php');
-require_once('PreTTYString.php');
-require_once('PreTTYProgressBar.php');
+$dir = dirname(__FILE__);
+require_once(dirname($dir). '/interfaces/iPreTTYHooker.php');
+require_once($dir. '/PreTTYColorEncoder.php');
+require_once($dir. '/PreTTYTierCache.php');
+require_once($dir. '/PreTTYFormatter.php');
+require_once($dir. '/PreTTYString.php');
+require_once($dir . '/PreTTYProgressBar.php');
 
 /**
  * This was made by Michael Fairhurst and is distributed under
