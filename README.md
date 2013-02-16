@@ -106,7 +106,8 @@ quite easily.
 
 ## Available Components
 
-### `PreTTYFormatter`
+### Indenting formatter (STANDARD)
+component classname:`PreTTYFormatter`
 This is the standard indentation/truncation formatter. But you can easily
 swap it out with your own. Installed by default
 
@@ -117,7 +118,8 @@ swap it out with your own. Installed by default
 * `->outdent()`
 > de-Indent the following calls of `->say()`
 
-### `PreTTYProgressBar`
+### Progress Bar (STANDARD)
+component classname:`PreTTYProgressBar`
 This renders a progress bar and estimated time until completion at the
 bottom of your terminal
 
@@ -131,7 +133,8 @@ bottom of your terminal
 > tasks you've marked completed with this function, to how many total
 > tasks you set with `->setTasks()`
 
-### `PreTTYBreadCrumbs`
+### Bread crumbs
+component classname:`PreTTYBreadCrumbs`
 The top of your terminal will track the breadcrumbs of how your process
 arrived at its latest output. For instance, if every A is compared to
 every B, and merged together an item at a time, then you may see this:
@@ -175,6 +178,14 @@ array.
 
 	// is the same as
 	$component->runHook('CUSTOMHOOK', array(1, 2, 3));
+
+### Standard hooks (hook - data)
+
+* `iPreTTYComponent::HOOK_BEFORE_SAY` - no data
+* `iPreTTYComponent::HOOK_SAY` - `array('string' => PreTTYStringObject)`
+* `iPreTTYComponent::HOOK_AFTER_SAY` - no data
+* `iPreTTYComponent::HOOK_INDENT` - no data
+* `iPreTTYComponent::HOOK_OUTDENT` - no data
 
 ## Using the `PreTTYColorEncoder`
 ANSI sequences begin a format or move the cursor. If you begin a format
