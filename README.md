@@ -19,10 +19,10 @@ distributed under the MIT license.
 
 ![Preview of PreTTY output](http://wikifightgame.com/moarcontent/I-Feel-PreTTY.png)
 
-# Using it in three steps
+# Use it in three steps
 
-1. Create a class that extends `PreTTYProcess`, and `->install()` your
-components. You can start without any installed components by passing
+1. Create a class that extends `PreTTYProcess`, and `->install()` your custom
+components if you have any. This example installs the breadcrumbs component.
 `array()` as the first constructor parameter.
 
 		class ExampleMigration extends PreTTYProcess {
@@ -37,34 +37,33 @@ components. You can start without any installed components by passing
 			}
 		}
 
-2. Count your operations as best you can. This will be used to track
-completion percentage and time estimates
+2. Count your operations as best you can up front, and tick them off as they are
+done. This will be used to track completion percentage and time estimates
 
 		function run() {
 			$this->setTasks(UserQuery::create()->count());
 
 			foreach(UserQuery::create()->find() as $user) {
 				$this->doSomethingWith($user);
+				$this->completeTask();
 			}
 		}
 
-3. Perform each task, marking them complete along the way. This part
-is your job, not mine!
+3. Run your tasks, indenting for subtasks and coloring as you see fit. For
+instance, 'done' can be green and 'error' can be red.
 
 		function doSomethingWith(User $user) {
 			$this->say('Processing user #' . $user->getUserID(), 'blue')
 				->indent()
-				->say('Doing first thing');
+				->say('Doing something');
 
 			$user->doSomething();
 
 			$this->say('Saving');
-
 			$user->save();
 
 			$this->say('done', 'green')
-				->outdent()
-				->completeTask();
+				->outdent();
 		}
 
 # Documentation
