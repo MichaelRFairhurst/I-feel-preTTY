@@ -29,7 +29,7 @@ class PreTTYProgressBar implements iPreTTYHooker {
 
 		$perc = $this->getPercentage();
 
-		$cols = $this->width - 9;
+		$cols = $this->width - 10;
 		$i = 0;
 		$delta = 1/($cols);
 		$pos = $delta;
@@ -79,7 +79,7 @@ class PreTTYProgressBar implements iPreTTYHooker {
 	private function getProgressBarTopper() {
 		$timestr = $this->getTimeString();
 
-		$width = (($this->width+1) - strlen($timestr))/2 - 1;
+		$width = (($this->width) - strlen($timestr))/2 - 1;
 		$start = '<' . str_repeat('=', floor($width));
 		$end = str_repeat('=', ceil($width)) . '>';
 

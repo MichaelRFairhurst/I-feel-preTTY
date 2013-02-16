@@ -46,7 +46,7 @@ class PreTTYFormatter implements iPreTTYHooker {
 	}
 
 	private function getMaxContentLength() {
-		return $this->getIndentLength() - 3;
+		return $this->getIndentLength() - 4;
 	}
 
 	private function getIndentText() {
@@ -67,11 +67,11 @@ class PreTTYFormatter implements iPreTTYHooker {
 	}
 
 	private function getEmptyLine() {
-		return '||' . str_repeat(' ', $this->width - 2) . ']' . PHP_EOL;
+		return '||' . str_repeat(' ', $this->width - 3) . ']' . PHP_EOL;
 	}
 
 	private function getLineFill(PreTTYString $text) {
-		$len = $this->getIndentLength() - min($text->getLength(), $this->getMaxContentLength());
+		$len = $this->getIndentLength() - min($text->getLength(), $this->getMaxContentLength()) - 1;
 		return str_repeat('.', $len) . ']';
 	}
 
