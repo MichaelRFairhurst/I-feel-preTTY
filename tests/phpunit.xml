@@ -1,0 +1,16 @@
+<phpunit backupGlobals="true"
+         backupStaticAttributes="false"
+       	 bootstrap="../classes/PreTTYProcess.php"
+         cacheTokens="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         strict="false"
+         verbose="false">
+</phpunit>

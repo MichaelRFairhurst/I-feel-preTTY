@@ -52,7 +52,7 @@ class PreTTYFormatter implements iPreTTYHooker {
 	private function getIndentText() {
 		$return = '';
 
-		$first = $this->indent != $this->priorindent;
+		$first = $this->firstline || $this->indent != $this->priorindent;
 
 		if($first && !$this->firstline) $return .= $this->getEmptyLine();
 		$repeat = $first ? '===' : '   ';

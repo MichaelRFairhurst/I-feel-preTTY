@@ -2,6 +2,7 @@
 
 $dir = dirname(__FILE__);
 require_once(dirname($dir). '/interfaces/iPreTTYHooker.php');
+require_once($dir. '/TPUTWrapper.php');
 require_once($dir. '/PreTTYColorEncoder.php');
 require_once($dir. '/PreTTYTierCache.php');
 require_once($dir. '/PreTTYFormatter.php');
@@ -15,14 +16,16 @@ require_once($dir . '/PreTTYProgressBar.php');
 class PreTTYProcess {
 
 	private $hookers = array();
+	private $tput;
 
-	function __construct(PreTTYColorEncoder $encoder = null, array $hookers = null) {
+	function __construct(array $hookers = null, PreTTYColorEncoder $encoder = null, TPUTWrapper $tput = null) {
 
-		// simulate `clear`
-		$lines = `tput lines`;
-		echo str_repeat(PHP_EOL, $lines);
-
+		$this->tput = $tput ? $tput : new TPUTWrapper;
 		$this->encoder = $encoder ? $encoder : new PreTTYColorEncoder;
+
+		// clear terminal
+		$lines = $this->tput->getLines();
+		echo str_repeat(PHP_EOL, $lines);
 
 		if($hookers === null)
 			$hookers = array(new PreTTYProgressBar, new PreTTYFormatter);
@@ -56,7 +59,7 @@ class PreTTYProcess {
 
 	private function resetWidth() {
 		foreach($this->hookers as $hooker)
-			$hooker->setWidth(`tput cols` - 1);
+			$hooker->setWidth($this->tput->getColumns());
 	}
 
 
