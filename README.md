@@ -23,7 +23,6 @@ distributed under the MIT license.
 
 1. Create a class that extends `PreTTYProcess`, and `->install()` your custom
 components if you have any. This example installs the breadcrumbs component.
-`array()` as the first constructor parameter.
 
 		class ExampleMigration extends PreTTYProcess {
 
