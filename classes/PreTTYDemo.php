@@ -4,6 +4,11 @@ require_once 'PreTTYProcess.php';
 
 class PreTTYDemo extends PreTTYProcess {
 
+	function __construct() {
+		parent::__construct();
+		$this->install(new PreTTYBreadCrumbs);
+	}
+
 	function run() {
 		$this->setTasks(342);
 		$this->say('Cue music', 'white')

@@ -1,9 +1,9 @@
 <?php
 
-class PreTTYProgressBar implements iPreTTYHooker {
+class PreTTYProgressBar implements iPreTTYComponent {
 
-	const COMPLETE_TASK = 'COMPLETETASK';
-	const SET_TASKS = 'SETTASKS';
+	const HOOK_COMPLETE_TASK = 'COMPLETETASK';
+	const HOOK_SET_TASKS = 'SETTASKS';
 
 	private $tasks = 999999;
 	private $completed = 0;
@@ -119,20 +119,20 @@ class PreTTYProgressBar implements iPreTTYHooker {
 
 	public function runHook($hook, array $data = array()) {
 		switch($hook) {
-			case iPreTTYHooker::BEFORE_SAY:
+			case iPreTTYComponent::HOOK_BEFORE_SAY:
 				if($this->printed_bar)
 					return $this->encoder->moveup(2);
 				break;
 
-			case iPreTTYHooker::AFTER_SAY:
+			case iPreTTYComponent::HOOK_AFTER_SAY:
 				return $this->render();
 				break;
 
-			case self::COMPLETE_TASK:
+			case self::HOOK_COMPLETE_TASK:
 				$this->completeTask();
 				break;
 
-			case self::SET_TASKS:
+			case self::HOOK_SET_TASKS:
 				$this->setTasks($data[0]);
 				break;
 

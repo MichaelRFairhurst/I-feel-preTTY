@@ -4,7 +4,7 @@ class PreTTYProcessTest extends PHPUnit_Framework_TestCase {
 
 	function setUp() {
 		$this->tput = $this->getMock('TPUTWrapper');
-		$this->hook_spy = $this->getMock('iPreTTYHooker');
+		$this->hook_spy = $this->getMock('iPreTTYComponent');
 		$this->encoder = $this->getMock('PreTTYColorEncoder');
 		$this->process = new PreTTYProcess(array($this->hook_spy), $this->encoder, $this->tput);
 	}
@@ -28,7 +28,7 @@ class PreTTYProcessTest extends PHPUnit_Framework_TestCase {
 	function testIndentSendsHookToSpy() {
 		$this->hook_spy->expects($this->once())
 			->method('runHook')
-			->with(iPrettyHooker::INDENT);
+			->with(iPrettyComponent::HOOK_INDENT);
 
 		$this->process->indent();
 	}
@@ -36,7 +36,7 @@ class PreTTYProcessTest extends PHPUnit_Framework_TestCase {
 	function testOutdentSendsHookToSpy() {
 		$this->hook_spy->expects($this->once())
 			->method('runHook')
-			->with(iPrettyHooker::OUTDENT);
+			->with(iPrettyComponent::HOOK_OUTDENT);
 
 		$this->process->outdent();
 	}
@@ -44,15 +44,15 @@ class PreTTYProcessTest extends PHPUnit_Framework_TestCase {
 	function testSaySendsSayHooksToSpy() {
 		$this->hook_spy->expects($this->at(1))
 			->method('runHook')
-			->with(iPrettyHooker::BEFORE_SAY, array());
+			->with(iPrettyComponent::HOOK_BEFORE_SAY, array());
 
 		$this->hook_spy->expects($this->at(2))
 			->method('runHook')
-			->with(iPrettyHooker::SAY, $this->anything());
+			->with(iPrettyComponent::HOOK_SAY, $this->anything());
 
 		$this->hook_spy->expects($this->at(3))
 			->method('runHook')
-			->with(iPrettyHooker::AFTER_SAY, array());
+			->with(iPrettyComponent::HOOK_AFTER_SAY, array());
 
 		$this->process->say('a string', 'a color', false);
 	}

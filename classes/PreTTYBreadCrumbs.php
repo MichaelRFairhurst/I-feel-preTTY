@@ -1,6 +1,6 @@
 <?php
 
-class PreTTYTierCache implements iPreTTYHooker {
+class PreTTYBreadCrumbs implements iPreTTYComponent {
 
 	private $width;
 	private $indent = 1;
@@ -18,16 +18,16 @@ class PreTTYTierCache implements iPreTTYHooker {
 
 	public function runHook($hook, array $data = array()) {
 		switch($hook) {
-			case iPreTTYHooker::SAY:
+			case iPreTTYComponent::HOOK_SAY:
 				$this->cache[$this->indent] = $data['string'];
 				break;
 
-			case iPreTTYHooker::AFTER_SAY:
+			case iPreTTYComponent::HOOK_AFTER_SAY:
 				return $this->printCache();
 				break;
 
-			case iPreTTYHooker::INDENT: $this->indent++; break;
-			case iPreTTYHooker::OUTDENT: $this->indent--; array_pop($this->cache); break;
+			case iPreTTYComponent::HOOK_INDENT: $this->indent++; break;
+			case iPreTTYComponent::HOOK_OUTDENT: $this->indent--; array_pop($this->cache); break;
 		}
 	}
 

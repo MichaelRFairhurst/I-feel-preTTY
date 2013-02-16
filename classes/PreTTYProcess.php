@@ -1,10 +1,10 @@
 <?php
 
 $dir = dirname(__FILE__);
-require_once(dirname($dir). '/interfaces/iPreTTYHooker.php');
+require_once(dirname($dir). '/interfaces/iPreTTYComponent.php');
 require_once($dir. '/TPUTWrapper.php');
 require_once($dir. '/PreTTYColorEncoder.php');
-require_once($dir. '/PreTTYTierCache.php');
+require_once($dir. '/PreTTYBreadCrumbs.php');
 require_once($dir. '/PreTTYFormatter.php');
 require_once($dir. '/PreTTYString.php');
 require_once($dir . '/PreTTYProgressBar.php');
@@ -15,10 +15,10 @@ require_once($dir . '/PreTTYProgressBar.php');
  */
 class PreTTYProcess {
 
-	private $hookers = array();
+	private $components = array();
 	private $tput;
 
-	function __construct(array $hookers = null, PreTTYColorEncoder $encoder = null, TPUTWrapper $tput = null) {
+	function __construct(array $components = null, PreTTYColorEncoder $encoder = null, TPUTWrapper $tput = null) {
 
 		$this->tput = $tput ? $tput : new TPUTWrapper;
 		$this->encoder = $encoder ? $encoder : new PreTTYColorEncoder;
@@ -27,10 +27,10 @@ class PreTTYProcess {
 		$lines = $this->tput->getLines();
 		echo str_repeat(PHP_EOL, $lines);
 
-		if($hookers === null)
-			$hookers = array(new PreTTYProgressBar, new PreTTYFormatter);
+		if($components === null)
+			$components = array(new PreTTYProgressBar, new PreTTYFormatter);
 
-		array_map(array($this, 'addHooker'), $hookers);
+		array_map(array($this, 'install'), $components);
 	}
 
 	/**
@@ -44,22 +44,22 @@ class PreTTYProcess {
 		return $this;
 	}
 
-	public function addHooker(iPreTTYHooker $hooker) {
-		$this->hookers[] = $hooker;
-		$hooker->setEncoder($this->encoder);
+	public function install(iPreTTYComponent $component) {
+		$this->components[] = $component;
+		$component->setEncoder($this->encoder);
 
 		return $this;
 	}
 
 	public function runHook($hook, array $data = array()) {
-		foreach($this->hookers as $hooker) {
-			echo $hooker->runHook($hook, $data);
+		foreach($this->components as $component) {
+			echo $component->runHook($hook, $data);
 		}
 	}
 
 	private function resetWidth() {
-		foreach($this->hookers as $hooker)
-			$hooker->setWidth($this->tput->getColumns());
+		foreach($this->components as $component)
+			$component->setWidth($this->tput->getColumns());
 	}
 
 
@@ -76,12 +76,12 @@ class PreTTYProcess {
 	 */
 	public function say($text, $color = null, $bold = false) {
 		$this->resetWidth();
-		$this->runHook(iPreTTYHooker::BEFORE_SAY);
+		$this->runHook(iPreTTYComponent::HOOK_BEFORE_SAY);
 
 		$text = $this->getPreTTYString($text, $color, $bold);
 
-		$this->runHook(iPreTTYHooker::SAY, array('string' => $text));
-		$this->runHook(iPreTTYHooker::AFTER_SAY);
+		$this->runHook(iPreTTYComponent::HOOK_SAY, array('string' => $text));
+		$this->runHook(iPreTTYComponent::HOOK_AFTER_SAY);
 		return $this;
 	}
 

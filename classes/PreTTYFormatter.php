@@ -1,6 +1,6 @@
 <?php
 
-class PreTTYFormatter implements iPreTTYHooker {
+class PreTTYFormatter implements iPreTTYComponent {
 
 	private $indent = 0;
 	private $priorindent = 1;
@@ -80,8 +80,8 @@ class PreTTYFormatter implements iPreTTYHooker {
 	}
 
 	public function runHook($hook, array $data = array()) {
-		if($hook === iPreTTYHooker::INDENT) $this->indent();
-		if($hook === iPreTTYHooker::OUTDENT) $this->outdent();
-		if($hook === iPreTTYHooker::SAY) return $this->wrapString($data['string']);
+		if($hook === iPreTTYComponent::HOOK_INDENT) $this->indent();
+		if($hook === iPreTTYComponent::HOOK_OUTDENT) $this->outdent();
+		if($hook === iPreTTYComponent::HOOK_SAY) return $this->wrapString($data['string']);
 	}
 }

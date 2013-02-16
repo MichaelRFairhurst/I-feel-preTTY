@@ -23,13 +23,13 @@ class PreTTYFormatterTest extends PHPUnit_Framework_TestCase {
 	function testFirstLinesAtIndent($indent, $expected) {
 		$formatter = new PreTTYFormatter;
 		$formatter->setWidth(32);
-		for($i=0;$i<$indent;$i++) $formatter->runHook(iPrettyHooker::INDENT);
+		for($i=0;$i<$indent;$i++) $formatter->runHook(iPrettyComponent::HOOK_INDENT);
 
 		$text = $this->getMockPreTTYString('output');
 
 		$this->assertEquals(
 			$expected . PHP_EOL,
-			$formatter->runHook(iPreTTYHooker::SAY, array('string' => $text))
+			$formatter->runHook(iPreTTYComponent::HOOK_SAY, array('string' => $text))
 		);
 	}
 
@@ -54,17 +54,17 @@ class PreTTYFormatterTest extends PHPUnit_Framework_TestCase {
 		$formatter = new PreTTYFormatter;
 		$formatter->setWidth(32);
 
-		for($i=0;$i<$indent;$i++) $formatter->runHook(iPrettyHooker::INDENT);
+		for($i=0;$i<$indent;$i++) $formatter->runHook(iPrettyComponent::HOOK_INDENT);
 
 		// run it
-		$formatter->runHook(iPreTTYHooker::SAY, array('string' => $this->getMockPreTTYString('anything')));
+		$formatter->runHook(iPreTTYComponent::HOOK_SAY, array('string' => $this->getMockPreTTYString('anything')));
 		// and now we're testing second line indent
 
 		$text = $this->getMockPreTTYString('output');
 
 		$this->assertEquals(
 			$expected . PHP_EOL,
-			$formatter->runHook(iPreTTYHooker::SAY, array('string' => $text))
+			$formatter->runHook(iPreTTYComponent::HOOK_SAY, array('string' => $text))
 		);
 	}
 
@@ -95,7 +95,7 @@ class PreTTYFormatterTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			$expected . PHP_EOL,
-			$formatter->runHook(iPreTTYHooker::SAY, array('string' => $text))
+			$formatter->runHook(iPreTTYComponent::HOOK_SAY, array('string' => $text))
 		);
 	}
 }
