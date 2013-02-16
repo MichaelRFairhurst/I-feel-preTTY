@@ -531,7 +531,7 @@ class PreTTYDemo extends PreTTYProcess {
 					->say('boy', 'yellow', true)
 				->outdent()
 			->outdent()
-			->say('END HAPPY SINGING', 'red');
+			->say('END HAPPY SINGINGsanoetuhsaoteuhsaoetuhasoentuahsoenutahsoenutahsoeutahsoeuahsoeutaoseuntahoseuntahoseutnahoesnuthasoteuhsaoteuhsaoteuhsaonetuhasot', 'red');
 	}
 
 	function say($text, $color = null, $weight = null) {

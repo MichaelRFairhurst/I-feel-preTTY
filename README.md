@@ -19,7 +19,7 @@ distributed under the MIT license.
 
 ![Preview of PreTTY output](http://wikifightgame.com/moarcontent/I-Feel-PreTTY.png)
 
-For the moment the only classes are PreTTYProcess and PreTTYDemo
+# Documentation is out of date. Will fix soon
 
 ## PreTTYDemo:
 Have a nice serenading demo of PreTTYProcess, just run `php demo.php`
