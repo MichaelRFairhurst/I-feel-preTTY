@@ -24,6 +24,7 @@ distributed under the MIT license.
 1. Create a class that extends PreTTYProcess, and `->install()` your
 components. You can start without any installed components by passing
 `array()` as the first constructor parameter.
+
 	class ExampleMigration extends PreTTYProcess {
 
 		function __construct() {
@@ -38,6 +39,7 @@ components. You can start without any installed components by passing
 
 2. Count your operations as best you can. This will be used to track
 completion percentage and time estimates
+
 	function run() {
 		$this->setTasks(UserQuery::create()->count());
 
@@ -48,6 +50,7 @@ completion percentage and time estimates
 
 3. Perform each task, marking them complete along the way. This part
 is your job, not mine!
+
 	function doSomethingWith(User $user) {
 		$this->say('Processing user #' . $user->getUserID(), 'blue')
 			->indent()
@@ -132,6 +135,7 @@ bottom of your terminal
 The top of your terminal will track the breadcrumbs of how your process
 arrived at its latest output. For instance, if every A is compared to
 every B, and merged together an item at a time, then you may see this:
+
 	+Begin comparing A #123 to all Bs
 	+++Comparing to B #194
 	+++++Consolidating
